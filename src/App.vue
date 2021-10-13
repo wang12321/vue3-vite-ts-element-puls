@@ -6,10 +6,6 @@
     <router-link to="/about">About</router-link>
   </div>
   <router-view />
-  <!--  <img alt="Vue logo" src="./assets/logo.png" />-->
-  <!--  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />-->
-  <!--  <el-button type="primary"> Element UI </el-button>-->
-  <!--  <div class="red">123123</div>-->
 </template>
 
 <style>
