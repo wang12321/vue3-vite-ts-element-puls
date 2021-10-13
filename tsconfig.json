@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",  // 解析非相对模块名的基准目录
+    "target": "esnext",  // 指定ECMAScript目标版本
+    "useDefineForClassFields": true,
+    "module": "esnext", // 指定生成哪个模块系统代码
+    "moduleResolution": "node",
+    "strict": true, // 启用所有严格类型检查选项。
+    "jsx": "preserve",
+    "sourceMap": true, // 生成相应的 .map文件。
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    // 忽略所有的声明文件（ *.d.ts）的类型检查。
+    "skipLibCheck": true,
+    // 编译过程中需要引入的库文件的列表。
+    "lib": ["esnext", "dom"],
+    // 要包含的类型声明文件名列表
+    "types": [
+    ],
+    // 模块名到基于 baseUrl的路径映射的列表。
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": [
+    "node_modules"
+  ]
+
+}
