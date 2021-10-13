@@ -14,8 +14,6 @@
     "eslint": "^6.8.0",
     "eslint-plugin-prettier": "^3.4.1",
     "eslint-plugin-vue": "^7.19.1",
-    "husky": "^6.0.0",
-    "lint-staged": "^9.5.0",
     "prettier": "^2.4.1",
     "vite-plugin-style-import": "^1.2.1",
     "vue": "^3.2.19",
@@ -25,27 +23,18 @@
   "devDependencies": {
     "@commitlint/cli": "~11.0.0",
     "@commitlint/config-conventional": "~11.0.0",
-    "@vue/eslint-config-prettier": "^6.0.0",
-    "@vue/eslint-config-typescript": "^7.0.0",
+    "@types/node": "^16.10.2",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
-    "@types/node": "^16.10.2",
-    "@vue/compiler-sfc": "^3.2.19",
-    "sass": "^1.42.1",
     "@vitejs/plugin-vue": "^1.9.2",
-    "unplugin-vue-components": "^0.15.4",
+    "@vue/compiler-sfc": "^3.2.19",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "husky": "^7.0.2",
+    "sass": "^1.42.1",
     "typescript": "^4.4.3",
+    "unplugin-vue-components": "^0.15.4",
     "vite": "^2.6.0",
     "vue-tsc": "^0.3.0"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged",
-    "commit-msg": "commitlint --config commitlint.config.js -e -V"
-  },
-  "lint-staged": {
-    "*.{js,jsx,vue,ts,tsx}": [
-      "eslint \"src/**/*.{ts,tsx,js,json,vue}\" --fix",
-      "git add ."
-    ]
   }
 }
