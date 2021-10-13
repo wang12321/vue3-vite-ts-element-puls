@@ -42,7 +42,7 @@
     "commit-msg": "commitlint --config commitlint.config.js -e -V"
   },
   "lint-staged": {
-    "*.{js,jsx,vue,ts,tsx}": [git
+    "*.{js,jsx,vue,ts,tsx}": [
       "eslint \"src/**/*.{ts,tsx,js,json,vue}\" --fix",
       "git add ."
     ]
