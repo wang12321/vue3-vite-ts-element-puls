@@ -2,15 +2,16 @@
   // import { ref } from 'vue'
   import { useStore } from 'vuex'
   import { computed, ref } from 'vue'
-  import { key } from '@/store'
-
+  const store = useStore()
+  console.log(store.state.user)
   // eslint-disable-next-line no-undef
   // defineProps<{ msg: string }>()
-
   const msg = ref(12312)
-  const store = useStore(key)
-  const count = computed(() => store.state.count)
-  const inCrement = () => store.commit('increment')
+  // const store = useStore(user)
+  // const count = computed(() => store.state.user.count)
+  const count = computed(() => store.getters['user/count'])
+
+  const inCrement = () => store.commit('user/increment')
 </script>
 
 <template>

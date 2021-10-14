@@ -1,21 +1,13 @@
-import { InjectionKey } from 'vue'
-import { createStore, Store } from 'vuex'
+import { createStore } from 'vuex'
+const files = import.meta.globEager('./modules/*.ts')
 
-export interface State {
-  count: number
-}
+const modules: any = {}
+Object.keys(files).forEach((c: string) => {
+  const module = files[c].default
+  const moduleName: string = c.replace(/^\.\/(.*)\/(.*)\.\w+$/, '$2')
+  modules[moduleName] = module
+})
 
-export const key: InjectionKey<Store<State>> = Symbol()
-
-export const store = createStore<State>({
-  state() {
-    return {
-      count: 10
-    }
-  },
-  mutations: {
-    increment(state) {
-      state.count++
-    }
-  }
+export default createStore({
+  modules
 })
