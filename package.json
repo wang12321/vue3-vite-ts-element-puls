@@ -5,7 +5,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
-    "lint:eslint": "eslint \"src/**/*.{ts,tsx,js,json,vue}\" --fix",
+    "lint:eslint": "eslint \"src/**/*.{ts,tsx,js,json,vue}\"",
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,ts,css,scss,vue,html,md}\"",
     "prepare": "husky install"
   },
