@@ -55,6 +55,9 @@ const getters: GetterTree<userStore, any> = {
   }
 }
 const actions: ActionTree<userStore, any> = {
+  incrementA({ commit }) {
+    commit('increment')
+  },
   // user login
   login({ commit }, userInfo) {
     const { login } = api.user

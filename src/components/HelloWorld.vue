@@ -11,7 +11,9 @@
   // const count = computed(() => store.state.user.count)
   const count = computed(() => store.getters['user/count'])
 
-  const inCrement = () => store.commit('user/increment')
+  // const inCrement = () => store.commit('user/increment')
+  const inCrement = () => store.dispatch('user/incrementA')
+  console.log(1111, store)
 </script>
 
 <template>

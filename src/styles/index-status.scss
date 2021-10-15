@@ -1,0 +1,28 @@
+/* 指标/纬度状态 */
+.status-icon {
+  display: inline-block;
+  margin-right: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+
+  &.using {
+    background-color: #52c41b;
+  }
+
+  &.checking, &.draft {
+    background-color: #2a90ff;
+  }
+
+  &.unused {
+    background-color: #faad15;
+  }
+
+  &.deprecated {
+    background-color: #aaaaaa;
+  }
+
+  &.refuse {
+    background-color: #f44336;
+  }
+}

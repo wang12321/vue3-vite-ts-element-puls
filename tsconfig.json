@@ -33,5 +33,4 @@
   ],
   "typeRoots": ["./node_modules/@types/", "./types"]// 声明文件目录，默认时node_modules/@types
 
-
 }

@@ -26,7 +26,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        // additionalData: `@use "@/styles/index.scss" as *;`,
+        // additionalData: `$injectedColor: orange;`
       }
     }
   },
