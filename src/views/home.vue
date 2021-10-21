@@ -1,10 +1,8 @@
-<script setup type="ts">
-  import SvgIcon from '../components/SvgIcon.vue'
-</script>
+<script setup type="ts"></script>
 
 <template>
   <div style="background-color: #2c3e50">
-    <SvgIcon color="#ffffff" name="form"></SvgIcon>
+    <svg-icon color="#ffffff" name="form"></svg-icon>
   </div>
 </template>
 

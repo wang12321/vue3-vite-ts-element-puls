@@ -1,6 +1,7 @@
-// import { constantRoutes, asyncRouterMap } from '@/router'
+import { constantRoutes, asyncRouterMap } from '@/router'
 import { RouteRecordRaw } from 'vue-router'
-import { ActionTree, MutationTree } from 'vuex'
+import { ActionTree, GetterTree, MutationTree } from 'vuex'
+import { userStore } from '@/store/modules/user'
 
 /**
  * Use meta.role to determine if the current user has permission
@@ -66,28 +67,42 @@ const state: PermissionState = {
   routes: [],
   addRoutes: []
 }
+// getters
+const getters: GetterTree<PermissionState, any> = {
+  routes(state) {
+    return state.routes
+  },
+  addRoutes(state) {
+    return state.addRoutes
+  }
+}
 
 const mutations: MutationTree<PermissionState> = {
-  // SET_ROUTES: (state, routes) => {
-  //   state.addRoutes = routes
-  //   state.routes = constantRoutes.concat(routes)
-  // }
+  SET_ROUTES: (state, routes) => {
+    state.addRoutes = routes
+    state.routes = constantRoutes.concat(routes)
+    // state.routes = constantRoutes
+
+    console.log(9999999999, state.routes)
+  }
 }
 
 const actions: ActionTree<PermissionState, any> = {
   // 根据权限生成动态路由
-  // generateRoutes({ commit }, roles) {
-  //   return new Promise((resolve) => {
-  //     const accessedRoutes = filterAsyncRoutes(asyncRouterMap, roles)
-  //     commit('SET_ROUTES', accessedRoutes)
-  //     resolve(accessedRoutes)
-  //   })
-  // }
+  generateRoutes({ commit }, roles) {
+    return new Promise((resolve) => {
+      const accessedRoutes = filterAsyncRoutes(asyncRouterMap, roles)
+      // const accessedRoutes = asyncRouterMap
+      commit('SET_ROUTES', accessedRoutes)
+      resolve(accessedRoutes)
+    })
+  }
 }
 
 export default {
   namespaced: true,
   state,
   mutations,
-  actions
+  actions,
+  getters
 }

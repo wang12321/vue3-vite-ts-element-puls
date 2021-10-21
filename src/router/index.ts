@@ -1,16 +1,27 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/home.vue'
+import Home from '@/views/home.vue'
 import Layout from '@/layout/index.vue'
-
-const routes: Array<RouteRecordRaw> = [
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { routers } from '@virtual-router'
+export const asyncRouterMap: Array<RouteRecordRaw> = routers
+export const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
     component: Layout,
+    meta: { title: '首页0', icon: 'el-icon-location', affix: true },
     redirect: '/Home',
     children: [
       {
-        path: '/Home',
-        name: 'Home',
+        path: 'Home',
+        name: 'Home1',
+        meta: { title: '首页', icon: 'el-icon-location', affix: true },
+        component: Home
+      },
+      {
+        path: 'Home2',
+        name: 'Home2',
+        meta: { title: '首页2', icon: 'dashboard', affix: true },
         component: Home
       }
     ]
@@ -18,9 +29,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    meta: { title: '首页2', icon: 'dashboard', affix: true },
     component: () => import(/* webpackChunkName: "about" */ '../components/HelloWorld.vue')
   }
 ]
@@ -30,7 +39,7 @@ const routes: Array<RouteRecordRaw> = [
 // createMemoryHistory 带缓存 history 路由
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes: constantRoutes
 })
 
 export default router
