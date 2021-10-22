@@ -82,8 +82,6 @@ const mutations: MutationTree<PermissionState> = {
     state.addRoutes = routes
     state.routes = constantRoutes.concat(routes)
     // state.routes = constantRoutes
-
-    console.log(9999999999, state.routes)
   }
 }
 

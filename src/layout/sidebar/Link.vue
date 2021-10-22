@@ -26,7 +26,6 @@
       const store = useStore()
 
       const push = () => {
-        console.log(555555555, props.to)
         router.push(props.to).catch((err) => {
           console.log(err)
         })

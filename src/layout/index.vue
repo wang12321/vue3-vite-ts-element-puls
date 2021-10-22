@@ -74,7 +74,6 @@
         return store.state.app.sidebar
       })
       const key = computed(() => {
-        console.log(123123,route.path)
         return route.path
       })
       const state = reactive({

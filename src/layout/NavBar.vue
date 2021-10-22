@@ -76,11 +76,9 @@
         return !isLayout.value && showLogo.value && device.value !== '0' ? 'navbarLogo' : ''
       })
       const navbarBackground = computed(() => {
-        console.log(111, variables)
         return variables.navbarBackground
       })
       const navbarColor = computed(() => {
-        console.log(variables.navbarColor)
         return variables.navbarColor
       })
       const isSwitchEnvironment = computed(() => {

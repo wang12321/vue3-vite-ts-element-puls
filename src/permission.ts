@@ -21,20 +21,16 @@ router.beforeEach(async (to: RouteLocationNormalized, _: RouteLocationNormalized
 
   if (!hasToken) {
     if (to.path === '/login') {
-      console.log(1122)
-
       // if is logged in, redirect to the home page
       next({ path: '/' })
       NProgress.done()
     } else {
       const hasGetUserInfo = store.getters['permission/routes']
-      console.log(222, hasGetUserInfo)
       if (hasGetUserInfo.length !== 0) {
         next()
         NProgress.done()
       } else {
         try {
-          console.log(1122)
           //  permissionArray: [1] 表示只有超级管理员可以访问
           //  permissionArray: [1, 2] 表示只有超级管理员 和管理员可以访问
           //  permissionArray: [1, 2, 3] 表示只有超级管理员 、管理员及普通员工可以访问

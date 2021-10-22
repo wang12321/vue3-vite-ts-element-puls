@@ -170,7 +170,6 @@ function pathMapToMeta(
   pages: string,
   importPrefix: string
 ): routerType {
-  console.log(123123123, children, children.keys())
   Array.from(children.keys()).forEach((row: any) => {
     const item = children.get(row)
     // 配置参数

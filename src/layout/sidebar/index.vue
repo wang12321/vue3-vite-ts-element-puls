@@ -36,18 +36,14 @@
       SidebarItem
     },
     setup() {
-      console.log(22222, variables)
       const store = useStore()
       const route = useRoute()
 
       const routes = computed(() => {
         console.log('路由', store.state.permission.routes)
-        console.log('路由1', route)
-
         return store.state.permission.routes
       })
       const isCollapse = computed(() => {
-        console.log(11122, store.state.app.sidebar.opened)
         return !store.state.app.sidebar.opened
       })
       const activeMenu = computed(() => {

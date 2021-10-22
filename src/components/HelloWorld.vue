@@ -3,7 +3,6 @@
   import { useStore } from 'vuex'
   import { computed, ref } from 'vue'
   const store = useStore()
-  console.log(store.state.user)
   // eslint-disable-next-line no-undef
   // defineProps<{ msg: string }>()
   const msg = ref(12312)
@@ -13,7 +12,6 @@
 
   // const inCrement = () => store.commit('user/increment')
   const inCrement = () => store.dispatch('user/incrementA')
-  console.log(1111, store)
 </script>
 
 <template>

@@ -77,7 +77,6 @@
     },
     setup(props) {
       const alwaysShowRootMenu = computed(() => {
-        console.log(99999, props.item)
         if (props.item.meta && props.item.meta.alwaysShow) {
           return true
         } else {
@@ -110,7 +109,6 @@
             }
           }
         }
-        console.log(888888, { ...props.item, path: '' })
         // If there is no children, return itself with path removed,
         // because this.basePath already conatins item's path information
         return { ...props.item, path: '' }
