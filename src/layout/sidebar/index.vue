@@ -38,7 +38,6 @@
     setup() {
       const store = useStore()
       const route = useRoute()
-
       const routes = computed(() => {
         console.log('路由', store.state.permission.routes)
         return store.state.permission.routes
@@ -110,7 +109,7 @@
   }
 
   ::v-deep(.el-menu-item) {
-    font-size: 13px !important;
+    font-size: 14px !important;
     height: 65px !important;
     line-height: 65px !important;
     &:hover {
@@ -121,15 +120,16 @@
     }
   }
 
-  ::v-deep(.el-submenu__title) {
+  ::v-deep(.el-sub-menu__title) {
     height: 65px !important;
     line-height: 65px !important;
+    font-size: 15px !important;
     &:hover {
       background-color: rgba(52, 78, 104, 0.5) !important;
     }
   }
 
-  ::v-deep(.el-submenu .el-menu-item) {
+  ::v-deep(.el-sub-menu .el-menu-item) {
     height: 60px !important;
     line-height: 60px !important;
   }

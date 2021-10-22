@@ -1,5 +1,5 @@
 export const title = 'vue3+vite'
-export const logo = 'component'
+export const logo = ''
 
 export default function getPageTitle(pageTitle: string): string {
   if (pageTitle) {

@@ -58,7 +58,8 @@ export default defineConfig({
     force: true,
     proxy: {
       // 代理配置
-    }
+    },
+    historyApiFallback: {}
   },
   build: {
     // 压缩

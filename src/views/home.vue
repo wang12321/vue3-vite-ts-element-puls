@@ -2,7 +2,7 @@
 
 <template>
   <div style="background-color: #2c3e50">
-    <svg-icon color="#ffffff" name="form"></svg-icon>
+    <svg-icon name="form"></svg-icon>
   </div>
 </template>
 

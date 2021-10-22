@@ -1,17 +1,12 @@
 <template>
   <div
     class="sidebar-logo-container"
-    :class="{ collapse: collapse }"
+    :class="{ collapse: logo }"
     :style="{ background: navbarBackground }"
   >
     <transition name="sidebarLogoFade">
       <router-link class="sidebar-logo-link" to="/">
-        <svg-icon
-          v-if="logo"
-          :icon-class="logo"
-          class="sidebar-logo sidebar-logo-collapse"
-          :style="{ color: navbarColor }"
-        />
+        <svg-icon v-if="logo" :name="logo" class="sidebar-logo sidebar-logo-collapse"></svg-icon>
         <h1 class="sidebar-title" :style="{ color: navbarColor }">{{ title }} </h1>
       </router-link>
     </transition>
@@ -20,15 +15,13 @@
 
 <script lang="ts">
   import { computed, defineComponent } from 'vue'
-  import SvgIcon from '@/components/SvgIcon.vue'
   import { title, logo } from '@/utils/getPageTitle'
   import variables from '@/styles/variables.module.scss'
+  import SvgIcon from '@/components/SvgIcon/index.vue'
 
   export default defineComponent({
     name: 'SidebarLogo',
-    components: {
-      SvgIcon
-    },
+    components: { SvgIcon },
     props: {
       collapse: {
         type: Boolean,

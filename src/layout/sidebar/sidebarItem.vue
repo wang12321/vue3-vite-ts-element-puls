@@ -1,5 +1,8 @@
 <template>
-  <div v-if="!item.meta || !item.meta.hidden">
+  <div
+    v-if="!item.meta || !item.meta.hidden"
+    :class="[isCollapse ? 'full-mode' : 'simple-mode', { 'first-level': isFirstLevel }]"
+  >
     <template
       v-if="
         !alwaysShowRootMenu &&
@@ -139,16 +142,13 @@
 <style lang="scss" scoped>
   @import '../../styles/variables.module.scss';
 
-  ::v-deep(.el-submenu__title) {
-    font-size: 13px !important;
-  }
-  .el-submenu.is-active > .el-submenu__title {
+  .el-sub-menu.is-active > .el-sub-menu__title {
     color: $subMenuActiveText !important;
   }
 
   .full-mode {
-    .nest-menu .el-submenu > .el-submenu__title,
-    .el-submenu .el-menu-item {
+    .nest-menu .el-sub-menu > .el-sub-menu__title,
+    .el-sub-menu .el-menu-item {
       min-width: $sideBarWidth !important;
       background-color: $subMenuBg !important;
 
@@ -161,10 +161,10 @@
         display: inline-block;
       }
     }
-    ::v-deep(.el-submenu) {
+    ::v-deep(.el-sub-menu) {
       overflow: hidden !important;
-      & > .el-submenu__title {
-        .el-submenu__icon-arrow {
+      & > .el-sub-menu__title {
+        .el-sub-menu__icon-arrow {
           display: none !important;
         }
       }
@@ -182,13 +182,13 @@
         }
       }
 
-      .el-submenu {
+      .el-sub-menu {
         overflow: hidden;
 
-        & > .el-submenu__title {
+        & > .el-sub-menu__title {
           padding: 0px !important;
 
-          .el-submenu__icon-arrow {
+          .el-sub-menu__icon-arrow {
             display: none;
           }
 

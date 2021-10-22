@@ -4,8 +4,9 @@
   </svg>
 </template>
 
-<script>
+<script lang="ts">
   import { defineComponent, computed } from 'vue'
+  import variables from '../../styles/variables.module.scss'
 
   export default defineComponent({
     name: 'SvgIcon',
@@ -20,7 +21,7 @@
       },
       color: {
         type: String,
-        default: '#333'
+        default: variables.navbarColor || '#333'
       }
     },
     setup(props) {

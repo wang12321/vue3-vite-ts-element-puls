@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Home from '@/views/home.vue'
 import Layout from '@/layout/index.vue'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -38,7 +38,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
 // createWebHistory history 路由
 // createMemoryHistory 带缓存 history 路由
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: constantRoutes
 })
 

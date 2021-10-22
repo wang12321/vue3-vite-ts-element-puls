@@ -1,6 +1,6 @@
 <script lang="ts">
   import { h, VNode, RendererNode, RendererElement } from 'vue'
-  import SvgIcon from '@/components/SvgIcon.vue'
+  import SvgIcon from '@/components/SvgIcon/index.vue'
 
   type propsType = {
     title?: string
@@ -17,6 +17,10 @@
           h(
             `i`,
             {
+              style: {
+                'margin-right': '16px',
+                'margin-left': '-5px'
+              },
               className: props.icon
             },
             ''
@@ -27,6 +31,9 @@
           h(
             SvgIcon,
             {
+              style: {
+                'margin-right': '22px'
+              },
               color: '#ffffff',
               name: props.icon
             },

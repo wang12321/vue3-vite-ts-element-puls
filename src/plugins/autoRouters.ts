@@ -29,7 +29,7 @@ export function autoRouter(pages: string, importPrefix: string, routePath: strin
       async function hello(req: any, res: any, next: any) {
         // const { routes } = parsePagesDirectory(pages, importPrefix, routePath)
         if (req.url.indexOf(virtualFileId) > -1) {
-          // res.setHeader('Content-type', 'application/json')
+          // res.setHeader('X-Content-Type-Options', 'nosniff')
           // res.end(
           //   prettier.format(
           //     `
@@ -44,9 +44,21 @@ export function autoRouter(pages: string, importPrefix: string, routePath: strin
           //     }
           //   )
           // )
-          await next() //执行下一个中间件
+          // await res.end(
+          //   JSON.stringify({
+          //     success: false,
+          //     desc: '未找到mock路由'
+          //   })
+          // )
+          // send(
+          //   JSON.stringify({
+          //     success: false,
+          //     desc: '未找到mock路由'
+          //   })
+          // )
+          next() //执行下一个中间件
         } else {
-          await next() //执行下一个中间件
+          next() //执行下一个中间件
         }
       }
       server.middlewares.use(hello)
@@ -56,9 +68,9 @@ export function autoRouter(pages: string, importPrefix: string, routePath: strin
         console.log('调用了')
         return prettier.format(
           `
-            import Layout from '@/layout/index.vue'
-      export const routers = [${routes}]
-    `,
+                import Layout from '@/layout/index.vue'
+          export const routers = [${routes}]
+        `,
           {
             parser: 'babel',
             semi: false,

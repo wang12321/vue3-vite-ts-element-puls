@@ -8,7 +8,7 @@ import store from './store'
 import router from './router'
 import 'virtual:svg-icons-register'
 import '@/permission' // permission control
-import SvgIcon from '@/components/SvgIcon.vue'
+import SvgIcon from '@/components/SvgIcon/index.vue'
 
 createApp(App).use(ElementPlus).use(store).use(router).component('SvgIcon', SvgIcon).mount('#app')
 console.log(import.meta.env.VITE_APP_BASE_API)
