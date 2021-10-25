@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
-// import Components from 'unplugin-vue-components/vite'
-// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { configSvgIconsPlugin } from './src/plugins/svgIconsPlugin'
 import { autoRouter } from './src/plugins/autoRouters'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -20,24 +20,26 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
-    autoRouter('src/views/autoRouter', '@/views/autoRouter', '@virtual-router'),
-    configSvgIconsPlugin(true)
+    autoRouter('src/views/autoRouter', '/src/views/autoRouter', '@virtual-router'),
+    configSvgIconsPlugin(true),
     // 按需引入
-    // Components({
-    //   resolvers: [
-    //     ElementPlusResolver({
-    //       importStyle: 'sass'
-    //     })
-    //   ]
-    // })
+    Components({
+      resolvers: [
+        ElementPlusResolver({
+          importStyle: 'sass'
+        })
+      ]
+    })
   ],
   resolve: {
-    alias: {
-      '@': path.join(__dirname, 'src')
-    }
     // alias: {
-    //   '@/': `${path.resolve(__dirname, 'src')}/`
+    //   '@': path.join(__dirname, 'src')
     // }
+    alias: {
+      '@/': `${path.resolve(__dirname, 'src')}/`,
+      '/assets': 'src/assets'
+    },
+    extensions: ['.js', '.ts', '.jsx', '.tsx', '.json', '.vue', '.mjs']
   },
   css: {
     preprocessorOptions: {
@@ -47,6 +49,7 @@ export default defineConfig({
     }
   },
   server: {
+    hmr: { overlay: false }, // 禁用或配置 HMR 连接 设置 server.hmr.overlay 为 false 可以禁用服务器错误遮罩层
     port: 3001,
     host: '0.0.0.0',
     open: true,
@@ -58,15 +61,30 @@ export default defineConfig({
     force: true,
     proxy: {
       // 代理配置
-    },
-    historyApiFallback: {}
+    }
   },
   build: {
     // 压缩
     minify: 'esbuild',
-    assetsDir: 'static',
+    assetsDir: 'static/img/',
     outDir: `./dist`,
-    // 进行压缩计算
-    brotliSize: false
+    // 打包之后分开包
+    rollupOptions: {
+      output: {
+        chunkFileNames: 'static/js/[name]-[hash].js', // 用于在使用代码切割时命名共享模块
+        entryFileNames: 'static/js/[name]-[hash].js', // 用于在使用代码切割时命名
+        assetFileNames: 'static/css/[name]-[hash].[ext]' // 在使用代码切割时，用于自定义包含在输出构建中的资产名字
+      }
+    },
+    // 进行压缩计算--提高打包速度
+    brotliSize: false,
+    // 消除打包大小超过500kb警告
+    chunkSizeWarningLimit: 2000,
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    }
   }
 })

@@ -30,7 +30,7 @@
           console.log(err)
         })
         if (store.state.app.device.toString() === '0') {
-          store.dispatch('app/CloseSideBar', false)
+          store.dispatch('app/closeSideBar', false)
         }
       }
       return {

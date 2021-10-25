@@ -78,7 +78,7 @@
       })
       const state = reactive({
         handleClickOutside: () => {
-          store.dispatch('app/CloseSideBar', false)
+          store.dispatch('app/closeSideBar', false)
         }
       })
       watchRouter()

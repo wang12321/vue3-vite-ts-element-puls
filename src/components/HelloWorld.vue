@@ -15,6 +15,7 @@
 </script>
 
 <template>
+  <img src="/assets/logo.png" />
   <h1>{{ msg }}</h1>
 
   <p>

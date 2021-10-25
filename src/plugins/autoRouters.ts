@@ -1,19 +1,19 @@
 import { Plugin } from 'vite'
 import fg from 'fast-glob' // 读取文件目录
 import fs from 'fs'
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import prettier from 'prettier' // 处理文件格式
-
-interface routerType extends Array<routerType> {
+import prettier from 'prettier' //处理文件格式
+interface routerTypeObj {
   index: number
   path: string
   name: string
-  component?: any
+  component?: string
   redirect?: string
   meta?: string
-  children?: []
+  children?: any
 }
+type mapType = { value?: string[]; children?: Map<string, mapType> }
+
+type routerType = routerTypeObj[]
 
 export function autoRouter(pages: string, importPrefix: string, routePath: string): Plugin {
   const { routes } = parsePagesDirectory(pages, importPrefix, routePath)
@@ -26,42 +26,28 @@ export function autoRouter(pages: string, importPrefix: string, routePath: strin
       }
     },
     configureServer(server) {
-      async function hello(req: any, res: any, next: any) {
-        // const { routes } = parsePagesDirectory(pages, importPrefix, routePath)
-        if (req.url.indexOf(virtualFileId) > -1) {
-          // res.setHeader('X-Content-Type-Options', 'nosniff')
-          // res.end(
-          //   prettier.format(
-          //     `
-          //         import Layout from '@/layout/index.vue'
-          //   export const routers = [${routes}]
-          // `,
-          //     {
-          //       parser: 'babel',
-          //       semi: false,
-          //       singleQuote: true,
-          //       trailingComma: 'none' // 处理最后一行不加，的问题
-          //     }
-          //   )
-          // )
-          // await res.end(
-          //   JSON.stringify({
-          //     success: false,
-          //     desc: '未找到mock路由'
-          //   })
-          // )
-          // send(
-          //   JSON.stringify({
-          //     success: false,
-          //     desc: '未找到mock路由'
-          //   })
-          // )
-          next() //执行下一个中间件
+      server.middlewares.use((req, res, next) => {
+        const { routes } = parsePagesDirectory(pages, `/${pages}`, routePath)
+        if ((req.url as string).indexOf(virtualFileId) > -1) {
+          res.setHeader('Content-Type', 'application/javascript')
+          res.end(
+            prettier.format(
+              `
+                    import Layout from '/src/layout/index.vue'
+              export const routers = [${routes}]
+            `,
+              {
+                parser: 'babel',
+                semi: false,
+                singleQuote: true,
+                trailingComma: 'none' // 处理最后一行不加，的问题
+              }
+            )
+          )
         } else {
           next() //执行下一个中间件
         }
-      }
-      server.middlewares.use(hello)
+      })
     },
     load(id: string) {
       if (id === virtualFileId) {
@@ -106,8 +92,9 @@ function parsePagesDirectory(
   const layoutPathsArr = layoutPaths.map((p) => p.split('/'))
 
   // 生成嵌套目录
-  const map = {
-    children: ''
+  const map: mapType = {
+    value: [],
+    children: new Map<string, mapType>()
   }
   layoutPathsArr.forEach((path: string[]) => {
     const dir = path.slice(0, path.length - 1)
@@ -133,15 +120,15 @@ function parsePagesDirectory(
  * @param paths 不带.vue的路径
  * @param value 所有解析处理的层级目录数组
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
-function setToMap(map: {}, paths: any[], value: string[]) {
-  const target = paths.reduce((item, key) => {
+
+function setToMap(map: mapType, paths: string[], value: string[]) {
+  const target: mapType = paths.reduce((item: mapType, key): mapType => {
     if (!item.children) {
       item.children = new Map()
     }
     let child = item.children.get(key)
     if (!child) {
-      child = {}
+      child = {} as mapType
       item.children.set(key, child)
     }
     return child
@@ -178,14 +165,14 @@ function basename(filename: string) {
  */
 function pathMapToMeta(
   children: any,
-  routers: any = [],
+  routers: routerType,
   pages: string,
   importPrefix: string
 ): routerType {
   Array.from(children.keys()).forEach((row: any) => {
     const item = children.get(row)
     // 配置参数
-    const router = {
+    const router: routerTypeObj = {
       name: row,
       path:
         row.indexOf('_id') > -1
@@ -233,7 +220,12 @@ function pathMapToMeta(
     }
     // 如果有children 需要遍历循环匹配
     if (item.children) {
-      router.children = pathMapToMeta(item.children, router.children, pages, importPrefix) as any
+      router.children = pathMapToMeta(
+        item.children,
+        router.children,
+        pages,
+        importPrefix
+      ) as routerType
     }
     routers.push(router)
   })
@@ -254,7 +246,7 @@ function createRoutes(routers: routerType) {
  * @param children
  * @returns {string}
  */
-function createRoute(map: routerType, children = {}) {
+function createRoute(map: routerTypeObj, children = {}) {
   if (map.children && map.children.length !== 0) {
     children = map.children.map(createRouteZJ)
     if (map.redirect && map.redirect.length > 0) {
@@ -318,7 +310,7 @@ function createRoute(map: routerType, children = {}) {
  * @param children
  * @returns {string}
  */
-function createRouteZJ(map: routerType, children = {}) {
+function createRouteZJ(map: routerTypeObj, children = {}) {
   if (map.children) {
     children = map.children.map(createRouteZJ)
   }

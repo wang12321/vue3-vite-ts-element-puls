@@ -2,7 +2,7 @@
 
 <script>
   export default {
-    name: 'role_id'
+    name: 'roleId'
   }
 </script>
 

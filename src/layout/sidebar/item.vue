@@ -3,8 +3,8 @@
   import SvgIcon from '@/components/SvgIcon/index.vue'
 
   type propsType = {
-    title?: string
-    icon?: string
+    title?: string | unknown
+    icon?: string | unknown
   }
   const MenuItem = (
     props: propsType,
@@ -12,7 +12,7 @@
   ): VNode<RendererNode, RendererElement, { [p: string]: any }> => {
     const html = []
     if (props.icon) {
-      if (props.icon.includes('el-icon')) {
+      if ((props.icon as string).includes('el-icon')) {
         html.push(
           h(
             `i`,
@@ -21,7 +21,7 @@
                 'margin-right': '16px',
                 'margin-left': '-5px'
               },
-              className: props.icon
+              className: props.icon as string
             },
             ''
           )
@@ -35,7 +35,7 @@
                 'margin-right': '22px'
               },
               color: '#ffffff',
-              name: props.icon
+              name: props.icon as string
             },
             ''
           )
@@ -43,7 +43,7 @@
       }
     }
     if (props.title) {
-      html.push(h(`span`, {}, props.title))
+      html.push(h('span', {}, props.title as string))
     }
 
     return h(`div`, ctx.attrs, html)

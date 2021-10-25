@@ -11,4 +11,11 @@ import '@/permission' // permission control
 import SvgIcon from '@/components/SvgIcon/index.vue'
 
 createApp(App).use(ElementPlus).use(store).use(router).component('SvgIcon', SvgIcon).mount('#app')
+
+if (import.meta.env.VITE_APP_BASE_API?.includes('production')) {
+  console.log = function () {
+    return ''
+  }
+}
+
 console.log(import.meta.env.VITE_APP_BASE_API)

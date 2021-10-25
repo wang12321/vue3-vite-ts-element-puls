@@ -2,9 +2,9 @@
 
 <script lang="ts">
   export default {
-    name: 'menu',
+    name: 'Menu',
     meta: {
-      title: '菜单',
+      title: '菜单111',
       icon: 'form',
       permissionArray: [1, 2, 3, 4],
       sortIndex: 2,
