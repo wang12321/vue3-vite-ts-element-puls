@@ -12,7 +12,7 @@ import SvgIcon from '@/components/SvgIcon/index.vue'
 
 createApp(App).use(ElementPlus).use(store).use(router).component('SvgIcon', SvgIcon).mount('#app')
 
-if (import.meta.env.VITE_APP_BASE_API?.includes('production')) {
+if ((import.meta.env.VITE_APP_BASE_API as string)?.includes('production')) {
   console.log = function () {
     return ''
   }

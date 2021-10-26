@@ -80,21 +80,13 @@
     },
     setup(props) {
       const alwaysShowRootMenu = computed(() => {
-        if (props.item.meta && props.item.meta.alwaysShow) {
-          return true
-        } else {
-          return false
-        }
+        return !!(props.item.meta && props.item.meta.alwaysShow)
       })
 
       const showingChildNumber = computed(() => {
         if (props.item.children && props.item.children.length !== 0) {
           const showingChildren = props.item.children.filter((item) => {
-            if (item.meta && item.meta.hidden) {
-              return false
-            } else {
-              return true
-            }
+            return !(item.meta && item.meta.hidden)
           })
           return showingChildren.length
         }
@@ -186,7 +178,7 @@
         overflow: hidden;
 
         & > .el-sub-menu__title {
-          padding: 0px !important;
+          padding: 0 !important;
 
           .el-sub-menu__icon-arrow {
             display: none;
@@ -208,7 +200,7 @@
 
   .simple-mode {
     svg {
-      margin-left: 0px;
+      margin-left: 0;
     }
   }
 </style>

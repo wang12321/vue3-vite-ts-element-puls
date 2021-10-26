@@ -12,12 +12,12 @@
         style="top: 2px; position: relative"
       />
       <div class="right-menu">
-        <template v-if="device !== 'mobile'">
-          <!--          <screenfull-->
-          <!--            id="screenfull"-->
-          <!--            class="right-menu-item hover-effect"-->
-          <!--            :style="{ color: navbarColor }"-->
-          <!--          />-->
+        <template v-if="device !== '0'">
+          <screenfull
+            id="screenfull"
+            class="right-menu-item hover-effect"
+            :style="{ color: navbarColor }"
+          />
         </template>
         <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
           <div class="avatar-wrapper" :style="{ color: navbarColor }">
@@ -40,6 +40,7 @@
 <script>
   import SidebarLogo from './sidebar/Logo.vue'
   import Hamburger from '@/components/Hamburger/index.vue'
+  import screenfull from '@/components/Screenfull/index.vue'
 
   import { defineComponent, reactive, toRefs, computed } from 'vue'
   import { useStore } from 'vuex'
@@ -50,7 +51,8 @@
     name: 'NavBar',
     components: {
       SidebarLogo,
-      Hamburger
+      Hamburger,
+      screenfull
     },
     setup() {
       const store = useStore()
@@ -84,7 +86,6 @@
         }
       })
       return {
-        variables,
         isCollapse,
         device,
         name,
@@ -118,7 +119,7 @@
       line-height: 46px;
       height: 100%;
       float: left;
-      padding: 0 0px;
+      padding: 0 0;
       cursor: pointer;
       transition: background 0.3s;
       -webkit-tap-highlight-color: transparent;
@@ -144,6 +145,8 @@
         display: inline-block;
         padding: 0 8px;
         height: 100%;
+        float: left;
+        margin-top: 15px;
         font-size: 18px;
         color: #5a5e66;
         //vertical-align: text-bottom;
@@ -160,10 +163,10 @@
       .avatar-container {
         .avatar-wrapper {
           float: right;
-          height: 50px;
-          line-height: 50px;
+          height: 45px;
+          line-height: 45px;
           font-size: 18px;
-          margin-top: 0;
+          margin-top: 5px;
           margin-right: 16px;
           margin-left: 16px;
           position: relative;

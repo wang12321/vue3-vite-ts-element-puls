@@ -1,15 +1,13 @@
 <script lang="ts">
-  import { h, VNode, RendererNode, RendererElement } from 'vue'
+  import { h, VNode } from 'vue'
   import SvgIcon from '@/components/SvgIcon/index.vue'
 
   type propsType = {
     title?: string | unknown
     icon?: string | unknown
   }
-  const MenuItem = (
-    props: propsType,
-    ctx: any
-  ): VNode<RendererNode, RendererElement, { [p: string]: any }> => {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  const MenuItem = (props: propsType, ctx: any): VNode => {
     const html = []
     if (props.icon) {
       if ((props.icon as string).includes('el-icon')) {

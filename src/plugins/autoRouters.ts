@@ -1,7 +1,8 @@
 import { Plugin } from 'vite'
 import fg from 'fast-glob' // 读取文件目录
-import fs from 'fs'
 import prettier from 'prettier' //处理文件格式
+import fs from 'fs'
+
 interface routerTypeObj {
   index: number
   path: string
@@ -9,7 +10,7 @@ interface routerTypeObj {
   component?: string
   redirect?: string
   meta?: string
-  children?: any
+  children?: routerTypeObj[]
 }
 type mapType = { value?: string[]; children?: Map<string, mapType> }
 
@@ -109,7 +110,12 @@ function parsePagesDirectory(
     setToMap(map, pathToMapPath(dir), path)
   })
   //  将目录匹配生成路由json
-  const routerJson: routerType = pathMapToMeta(map.children, [], pages, importPrefix)
+  const routerJson: routerType = pathMapToMeta(
+    map.children as Map<string, mapType>,
+    [],
+    pages,
+    importPrefix
+  )
   const routes = createRoutes(routerJson)
   return { routes }
 }
@@ -164,12 +170,12 @@ function basename(filename: string) {
  * @returns {*[]}
  */
 function pathMapToMeta(
-  children: any,
+  children: Map<string, mapType>,
   routers: routerType,
   pages: string,
   importPrefix: string
 ): routerType {
-  Array.from(children.keys()).forEach((row: any) => {
+  Array.from(children.keys()).forEach((row: string) => {
     const item = children.get(row)
     // 配置参数
     const router: routerTypeObj = {
@@ -188,7 +194,7 @@ function pathMapToMeta(
     }
 
     // 如果value有值，说明可以根据文件路径取meta信息
-    if (item.value) {
+    if (item && item.value) {
       router.component = importPrefix + '/' + item.value.join('/')
       const file = fs.readFileSync(pages + '/' + item.value.join('/'), 'utf8')
       const metaArr = file.match(/meta: {[^{]+\}/g) || file.match(/meta:{[^{]+\}/g)
@@ -219,10 +225,10 @@ function pathMapToMeta(
       }
     }
     // 如果有children 需要遍历循环匹配
-    if (item.children) {
+    if (item && item.children) {
       router.children = pathMapToMeta(
         item.children,
-        router.children,
+        router.children as routerType,
         pages,
         importPrefix
       ) as routerType
@@ -243,10 +249,10 @@ function createRoutes(routers: routerType) {
 /**
  * 一级路由转换 第一级的时候需要把component换成Layout 如果没有子节点，则需要将父节点复制一份成为子节点，component指向文件路径
  * @param map
- * @param children
  * @returns {string}
  */
-function createRoute(map: routerTypeObj, children = {}) {
+function createRoute(map: routerTypeObj): string {
+  let children
   if (map.children && map.children.length !== 0) {
     children = map.children.map(createRouteZJ)
     if (map.redirect && map.redirect.length > 0) {
@@ -272,7 +278,8 @@ function createRoute(map: routerTypeObj, children = {}) {
     }`
   } else {
     // 如果只有一级目录，需要单独处理name 不然会报警告name相同
-    children = `\n{
+    children = [
+      `\n{
       path:'${map.path}',
       name:'${map.name}',
       meta:${map.meta},
@@ -280,6 +287,7 @@ function createRoute(map: routerTypeObj, children = {}) {
       alwaysShow: false,
       component:() => import('${map.component}')
     }`
+    ]
     if (map.redirect && map.redirect.length > 0) {
       return `\n{
       path:'/${map.path}',
@@ -307,10 +315,10 @@ function createRoute(map: routerTypeObj, children = {}) {
 /**
  * 二级及以上路由转换
  * @param map json里面的children  子节点里面的path不需要'/'
- * @param children
  * @returns {string}
  */
-function createRouteZJ(map: routerTypeObj, children = {}) {
+function createRouteZJ(map: routerTypeObj): string {
+  let children = [] as string[]
   if (map.children) {
     children = map.children.map(createRouteZJ)
   }
@@ -324,6 +332,6 @@ function createRouteZJ(map: routerTypeObj, children = {}) {
     children:[${children}]
     }`
   } else {
-    return children
+    return `[${children}]`
   }
 }
