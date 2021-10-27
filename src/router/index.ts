@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Home from '@/views/home.vue'
 import Layout from '@/layout/index.vue'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

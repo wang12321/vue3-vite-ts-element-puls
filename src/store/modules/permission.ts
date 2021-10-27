@@ -1,7 +1,6 @@
 import { constantRoutes, asyncRouterMap } from '@/router'
 import { RouteRecordRaw } from 'vue-router'
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
-import { userStore } from '@/store/modules/user'
 
 /**
  * Use meta.role to determine if the current user has permission
