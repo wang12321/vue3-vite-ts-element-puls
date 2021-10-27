@@ -8,9 +8,11 @@ import store from './store'
 import router from './router'
 import 'virtual:svg-icons-register'
 import '@/permission' // permission control
-import SvgIcon from '@/components/SvgIcon/index.vue'
+import loadComponents from '@/components/index'
 
-createApp(App).use(ElementPlus).use(store).use(router).component('SvgIcon', SvgIcon).mount('#app')
+const app = createApp(App)
+loadComponents(app)
+app.use(ElementPlus).use(store).use(router).mount('#app')
 
 if ((import.meta.env.VITE_APP_BASE_API as string)?.includes('production')) {
   console.log = function () {
@@ -19,3 +21,9 @@ if ((import.meta.env.VITE_APP_BASE_API as string)?.includes('production')) {
 }
 
 console.log(import.meta.env.VITE_APP_BASE_API)
+
+// mock数据
+import { setupProdMockServer } from './mockProdServer'
+if (import.meta.env.VITE_APP_BASE_API === 'development') {
+  setupProdMockServer()
+}

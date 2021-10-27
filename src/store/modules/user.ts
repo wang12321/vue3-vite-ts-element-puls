@@ -1,5 +1,6 @@
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
 import { getToken, removeToken, setToken } from '@/utils/auth'
+import api from '@/services/api'
 
 const getDefaultState = () => {
   return {
@@ -52,6 +53,9 @@ const getters: GetterTree<userStore, any> = {
   },
   count(state) {
     return state.count
+  },
+  name(state) {
+    return state.name
   }
 }
 const actions: ActionTree<userStore, any> = {
@@ -59,55 +63,42 @@ const actions: ActionTree<userStore, any> = {
     commit('increment')
   },
   // user login
-  // login({ commit }, userInfo) {
-  //   const { login } = api.user
-  //   const { username, password } = userInfo
-  //   return new Promise((resolve, reject) => {
-  //     login({ username: username.trim(), password: password })
-  //       .then((response: any) => {
-  //         const { data } = response
-  //         commit('SET_TOKEN', data.token)
-  //         setToken(data.token)
-  //         resolve(response)
-  //       })
-  //       .catch((error: unknown) => {
-  //         reject(error)
-  //       })
-  //   })
-  // },
-  // // // get user info
-  // getInfo({ commit }) {
-  //   const { getInfo } = api.user
-  //   return new Promise((resolve, reject) => {
-  //     getInfo({ token: getToken() })
-  //       .then((response: any) => {
-  //         const { data } = response
-  //         if (!data) {
-  //           return reject('Verification failed, please Login again.')
-  //         }
-  //         const { name } = data
-  //         commit('SET_NAME', name)
-  //         resolve(data)
-  //       })
-  //       .catch((error: unknown) => {
-  //         reject(error)
-  //       })
-  //   })
-  // },
-  // Gamelist({ commit }) {
-  //   const { gamelist } = api.user
-  //   return new Promise((resolve, reject) => {
-  //     gamelist()
-  //       .then((response: any) => {
-  //         const { data } = response
-  //         commit('SET_Gamelist', data)
-  //         resolve(data)
-  //       })
-  //       .catch((error: unknown) => {
-  //         reject(error)
-  //       })
-  //   })
-  // },
+  login({ commit }, userInfo) {
+    const { login } = api.user
+    const { username, password } = userInfo
+    return new Promise((resolve, reject) => {
+      login({ username: username.trim(), password: password })
+        .then((response: any) => {
+          const { data } = response
+          commit('SET_TOKEN', data.token)
+          setToken(data.token)
+          resolve(response)
+        })
+        .catch((error: unknown) => {
+          reject(error)
+        })
+    })
+  },
+  // // get user info
+  getInfo({ commit }) {
+    const { getInfo } = api.user
+    return new Promise((resolve, reject) => {
+      getInfo({ token: getToken() })
+        .then((response: any) => {
+          console.log(111122, response)
+          const { data } = response
+          if (!data) {
+            return reject('Verification failed, please Login again.')
+          }
+          const { name } = data
+          commit('SET_NAME', name)
+          resolve(data)
+        })
+        .catch((error: unknown) => {
+          reject(error)
+        })
+    })
+  },
   // // user logout
   logout({ commit }) {
     return new Promise((resolve) => {

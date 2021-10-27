@@ -39,9 +39,6 @@
 
 <script>
   import SidebarLogo from './sidebar/Logo.vue'
-  import Hamburger from '@/components/Hamburger/index.vue'
-  import screenfull from '@/components/Screenfull/index.vue'
-
   import { defineComponent, reactive, toRefs, computed } from 'vue'
   import { useStore } from 'vuex'
   import { useRouter } from 'vue-router'
@@ -50,9 +47,7 @@
   export default defineComponent({
     name: 'NavBar',
     components: {
-      SidebarLogo,
-      Hamburger,
-      screenfull
+      SidebarLogo
     },
     setup() {
       const store = useStore()
@@ -62,7 +57,7 @@
         return store.state.app.device.toString()
       })
       const name = computed(() => {
-        return 'zonst'
+        return store.state.user.name
       })
 
       const isCollapse = computed(() => {

@@ -27,6 +27,11 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     ]
   },
   {
+    path: '/login',
+    name: 'login',
+    component: () => import(/* webpackChunkName: "about" */ '@/views/login/index.vue')
+  },
+  {
     path: '/about',
     name: 'About',
     meta: { title: '首页2', icon: 'dashboard', affix: true },

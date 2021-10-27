@@ -1,12 +1,12 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+// import Components from 'unplugin-vue-components/vite'
+// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { configSvgIconsPlugin } from './src/plugins/svgIconsPlugin'
 import { autoRouter } from './src/plugins/autoRouters'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-
+import { viteMockServe } from 'vite-plugin-mock'
 const isProduction = process.env.NODE_ENV === 'production'
 export default defineConfig({
   // 项目根目录
@@ -22,14 +22,22 @@ export default defineConfig({
     vueJsx(),
     autoRouter('src/views/autoRouter', '/src/views/autoRouter', '@virtual-router'),
     configSvgIconsPlugin(true),
-    // 按需引入
-    Components({
-      resolvers: [
-        ElementPlusResolver({
-          importStyle: 'sass'
-        })
-      ]
+    viteMockServe({
+      // default
+      mockPath: './mock',
+      localEnabled: !isProduction, // 开发打包开关
+      prodEnabled: !isProduction, // 生产打包开关
+      logger: false, //是否在控制台显示请求日志
+      supportTs: false //打开后，可以读取 ts 文件模块。 请注意，打开后将无法监视.js 文件
     })
+    // // 按需引入
+    // Components({
+    //   resolvers: [
+    //     ElementPlusResolver({
+    //       importStyle: 'sass'
+    //     })
+    //   ]
+    // })
   ],
   resolve: {
     // alias: {

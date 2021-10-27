@@ -19,14 +19,14 @@ router.beforeEach(async (to: RouteLocationNormalized, _: RouteLocationNormalized
   const hasToken = getToken()
   document.title = getPageTitle(to.meta.title as string)
 
-  if (!hasToken) {
+  if (hasToken) {
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
       next({ path: '/' })
       NProgress.done()
     } else {
-      const hasGetUserInfo = store.getters['permission/routes']
-      if (hasGetUserInfo.length !== 0) {
+      const hasGetUserInfo = store.getters['user/name']
+      if (hasGetUserInfo) {
         next()
         NProgress.done()
       } else {
@@ -34,11 +34,12 @@ router.beforeEach(async (to: RouteLocationNormalized, _: RouteLocationNormalized
           //  permissionArray: [1] 表示只有超级管理员可以访问
           //  permissionArray: [1, 2] 表示只有超级管理员 和管理员可以访问
           //  permissionArray: [1, 2, 3] 表示只有超级管理员 、管理员及普通员工可以访问
-          // const userInfo = await store.dispatch('user/getInfo')
+          const userInfo = await store.dispatch('user/getInfo')
           const accessRoutes: RouteRecordRaw[] = await store.dispatch(
             'permission/generateRoutes',
-            [1, 2, 3]
+            userInfo.permission
           )
+          console.log(22222333, accessRoutes)
 
           // 动态地添加可访问的 routes
           accessRoutes.forEach((route) => {
