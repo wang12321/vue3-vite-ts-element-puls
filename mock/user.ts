@@ -27,7 +27,6 @@ const tokens = {
     token: 'employees-token'
   }
 }
-
 interface keyType {
   [key: string]: any
 }
@@ -36,6 +35,15 @@ interface returnType {
   msg?: string
   data: keyType
 }
+
+function fhcode(data: keyType, errno?: string, msg?: string): returnType {
+  return {
+    errno: errno || '0',
+    msg: msg || '操作成功！',
+    data: data || {}
+  }
+}
+
 export default [
   {
     url: '/user/login',
@@ -58,10 +66,3 @@ export default [
     }
   }
 ]
-function fhcode(data: keyType, errno?: string, msg?: string): returnType {
-  return {
-    errno: errno || '0',
-    msg: msg || '操作成功！',
-    data: data || {}
-  }
-}
