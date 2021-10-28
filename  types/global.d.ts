@@ -7,3 +7,5 @@ interface ImportMetaEnv extends ViteEnv {
 declare interface keyType {
   [key: string]: any
 }
+
+// declare type axiosType = AxiosInstance

@@ -68,7 +68,7 @@ const actions: ActionTree<userStore, any> = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password })
-        .then((response: any) => {
+        .then((response) => {
           const { data } = response
           commit('SET_TOKEN', data.token)
           setToken(data.token)
@@ -85,7 +85,6 @@ const actions: ActionTree<userStore, any> = {
     return new Promise((resolve, reject) => {
       getInfo({ token: getToken() })
         .then((response: any) => {
-          console.log(111122, response)
           const { data } = response
           if (!data) {
             return reject('Verification failed, please Login again.')

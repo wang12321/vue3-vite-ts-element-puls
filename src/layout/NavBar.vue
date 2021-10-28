@@ -39,7 +39,7 @@
 
 <script>
   import SidebarLogo from './sidebar/Logo.vue'
-  import { defineComponent, reactive, toRefs, computed } from 'vue'
+  import { defineComponent, reactive, toRefs, computed, ref } from 'vue'
   import { useStore } from 'vuex'
   import { useRouter } from 'vue-router'
   import variables from '@/styles/variables.module.scss'
@@ -52,7 +52,6 @@
     setup() {
       const store = useStore()
       const router = useRouter()
-
       const device = computed(() => {
         return store.state.app.device.toString()
       })
