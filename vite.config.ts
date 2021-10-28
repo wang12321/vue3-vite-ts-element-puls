@@ -7,6 +7,8 @@ import { configSvgIconsPlugin } from './src/plugins/svgIconsPlugin'
 import { autoRouter } from './src/plugins/autoRouters'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { viteMockServe } from 'vite-plugin-mock'
+import vueDocs from 'vite-plugin-vue-docs'
+
 const isProduction = process.env.NODE_ENV === 'production'
 export default defineConfig({
   // 项目根目录
@@ -22,6 +24,7 @@ export default defineConfig({
     vueJsx(),
     autoRouter('src/views/autoRouter', '/src/views/autoRouter', '@virtual-router'),
     configSvgIconsPlugin(true),
+    vueDocs(),
     viteMockServe({
       // default
       mockPath: './mock',
@@ -45,7 +48,9 @@ export default defineConfig({
     // }
     alias: {
       '@/': `${path.resolve(__dirname, 'src')}/`,
-      '/assets': 'src/assets'
+      '/assets': 'src/assets',
+      // 必须添加这一行，否则无法使用
+      vue: 'vue/dist/vue.esm-bundler.js'
     },
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.json', '.vue', '.mjs']
   },

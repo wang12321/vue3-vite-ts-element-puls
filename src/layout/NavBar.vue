@@ -52,7 +52,6 @@
     setup() {
       const store = useStore()
       const router = useRouter()
-
       const device = computed(() => {
         return store.state.app.device.toString()
       })

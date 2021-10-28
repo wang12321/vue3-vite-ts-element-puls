@@ -1,16 +1,16 @@
-import axios from 'axios'
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, AxiosInstance } from 'axios'
 import { ElMessage } from 'element-plus'
 
-const service = axios.create({
+const service: AxiosInstance = axios.create({
   headers: {}
 })
 // request interceptor
 service.interceptors.request.use(
-  (config) => {
+  (config: AxiosRequestConfig) => {
     // do something before request is sent
     return config
   },
-  (error) => {
+  (error: AxiosError) => {
     // do something with request error
     return Promise.resolve(error)
   }
@@ -19,7 +19,7 @@ service.interceptors.request.use(
 // 响应拦截器
 // response interceptor
 service.interceptors.response.use(
-  (response) => {
+  (response: AxiosResponse) => {
     const res = response.data
     if (Number(res.errno) !== 0) {
       ElMessage({
@@ -34,7 +34,7 @@ service.interceptors.response.use(
       return Promise.resolve(res)
     }
   },
-  (error) => {
+  (error: AxiosError) => {
     ElMessage({
       message: `${error.config.url}响应失败，请刷新浏览器重试。原因${error}`,
       type: 'error',

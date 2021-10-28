@@ -27,7 +27,14 @@ router.beforeEach(async (to: RouteLocationNormalized, _: RouteLocationNormalized
     } else {
       const hasGetUserInfo = store.getters['user/name']
       if (hasGetUserInfo) {
-        next()
+        if (to.path.indexOf('/:id') > -1) {
+          const params = { id: '6' }
+          next({ ...to, params: params })
+        } else if (to.path.indexOf('/HelloWorld') > -1) {
+          next({ path: '/docs' })
+        } else {
+          next()
+        }
         NProgress.done()
       } else {
         try {
@@ -39,8 +46,6 @@ router.beforeEach(async (to: RouteLocationNormalized, _: RouteLocationNormalized
             'permission/generateRoutes',
             userInfo.permission
           )
-          console.log(22222333, accessRoutes)
-
           // 动态地添加可访问的 routes
           accessRoutes.forEach((route) => {
             router.addRoute(route)
