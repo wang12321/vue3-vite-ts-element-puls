@@ -1,4 +1,4 @@
-import { constantRoutes, asyncRouterMap, docsRouter } from '@/router'
+import { constantRoutes, asyncRouterMap } from '@/router'
 import { RouteRecordRaw } from 'vue-router'
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
 

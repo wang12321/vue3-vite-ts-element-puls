@@ -36,7 +36,6 @@ console.log(import.meta.env.VITE_APP_BASE_API)
 
 // mock数据
 import { setupProdMockServer } from './mockProdServer'
-import { constantRoutes } from '@/router'
 if (import.meta.env.VITE_APP_BASE_API === 'development') {
   setupProdMockServer()
 }
