@@ -12,9 +12,9 @@ import { routes } from 'virtual:vite-plugin-vue-docs'
 export const asyncRouterMap: Array<RouteRecordRaw> = routers
 export const docsRouter: Array<RouteRecordRaw> = routesChildren()
 function routesChildren(): [] {
-  routes[0].children = routes[0].children.filter((item: keyType) => {
-    return !(item.name.includes('使用说明') || item.name.includes('使用指南'))
-  })
+  // routes[0].children = routes[0].children.filter((item: keyType) => {
+  //   return !(item.name.includes('使用说明') || item.name.includes('使用指南'))
+  // })
   return routes
 }
 export const constantRoutes: Array<RouteRecordRaw> = [

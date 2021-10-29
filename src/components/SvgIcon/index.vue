@@ -11,14 +11,17 @@
   export default defineComponent({
     name: 'SvgIcon',
     props: {
+      // 前缀
       prefix: {
         type: String,
         default: 'icon'
       },
+      // 名称
       name: {
         type: String,
         required: true
       },
+      // 颜色
       color: {
         type: String,
         default: variables.navbarColor || '#333'

@@ -1,5 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import path from 'path'
 // import Components from 'unplugin-vue-components/vite'
 // import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
@@ -7,10 +9,14 @@ import { configSvgIconsPlugin } from './src/plugins/svgIconsPlugin'
 import { autoRouter } from './src/plugins/autoRouters'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { viteMockServe } from 'vite-plugin-mock'
-import vueDocs from 'vite-plugin-vue-docs'
-
+import vueDocs, { CustomConfig } from 'vite-plugin-vue-docs'
 const isProduction = process.env.NODE_ENV === 'production'
-export default defineConfig({
+const configDocs: Partial<CustomConfig> = {
+  showUse: false,
+  header: { title: '组件文档' }
+}
+
+const pro = defineConfig({
   // 项目根目录
   root: process.cwd(),
   // 在生产中服务时的基本公共路径
@@ -24,7 +30,7 @@ export default defineConfig({
     vueJsx(),
     autoRouter('src/views/autoRouter', '/src/views/autoRouter', '@virtual-router'),
     configSvgIconsPlugin(true),
-    vueDocs(),
+    vueDocs(configDocs as CustomConfig),
     viteMockServe({
       // default
       mockPath: './mock',
@@ -79,14 +85,15 @@ export default defineConfig({
   build: {
     // 压缩
     minify: 'esbuild',
-    assetsDir: 'static/img/',
+    // assetsDir: 'static/img/',
     outDir: `./dist`,
     // 打包之后分开包
     rollupOptions: {
+      // input: './src/components/index.ts',
       output: {
-        chunkFileNames: 'static/js/[name]-[hash].js', // 用于在使用代码切割时命名共享模块
-        entryFileNames: 'static/js/[name]-[hash].js', // 用于在使用代码切割时命名
-        assetFileNames: 'static/css/[name]-[hash].[ext]' // 在使用代码切割时，用于自定义包含在输出构建中的资产名字
+        chunkFileNames: 'static/js/[name].js', // 用于在使用代码切割时命名共享模块
+        entryFileNames: 'static/js/[name].js', // 用于在使用代码切割时命名
+        assetFileNames: 'static/css/[name].[ext]' // 在使用代码切割时，用于自定义包含在输出构建中的资产名字
       }
     },
     // 进行压缩计算--提高打包速度
@@ -101,3 +108,5 @@ export default defineConfig({
     }
   }
 })
+
+export default pro

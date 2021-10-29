@@ -8,23 +8,16 @@ import store from './store'
 import router from './router'
 import 'virtual:svg-icons-register'
 import '@/permission' // permission control
-import loadComponents from '@/components/index'
-// 引入虚拟package
-// import { createRouter, createWebHashHistory } from 'vue-router'
-
+// import loadComponents from '@/components/index'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { initVueDocsDemo } from 'virtual:vite-plugin-vue-docs'
-// const router = createRouter({
-//   history: createWebHashHistory(),
-//   routes: routes
-// })
+import loadComponents from '../lib/static/js/index.js'
 
 // 导入demo组件
 const app = createApp(App)
 loadComponents(app)
-app.use(initVueDocsDemo)
-app.use(ElementPlus).use(store).use(router).mount('#app')
+app.use(ElementPlus).use(store).use(router).use(initVueDocsDemo).mount('#app')
 
 if ((import.meta.env.VITE_APP_BASE_API as string)?.includes('production')) {
   console.log = function () {

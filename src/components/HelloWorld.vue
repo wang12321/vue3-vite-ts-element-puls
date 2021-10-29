@@ -1,21 +1,4 @@
-<script setup lang="ts">
-  // import { ref } from 'vue'
-  import { useStore } from 'vuex'
-  import { computed, ref } from 'vue'
-  const store = useStore()
-  // eslint-disable-next-line no-undef
-  // defineProps<{ msg: string }>()
-  const msg = ref(12312)
-  // const store = useStore(user)
-  // const count = computed(() => store.state.user.count)
-  const count = computed(() => store.getters['user/count'])
-
-  // const inCrement = () => store.commit('user/increment')
-  const inCrement = () => store.dispatch('user/incrementA')
-</script>
-
 <template>
-  <img src="/assets/logo.png" />
   <h1>{{ msg }}</h1>
 
   <p>
@@ -39,7 +22,30 @@
     <code>components/HelloWorld.vue</code> to test hot module replacement.
   </p>
 </template>
+<script lang="ts">
+  import { useStore } from 'vuex'
+  import { defineComponent, computed } from 'vue'
+  export default defineComponent({
+    name: 'HellowWorld',
+    props: {
+      // 信息
+      msg: {
+        type: String,
+        required: true
+      }
+    },
+    setup() {
+      const store = useStore()
+      // eslint-disable-next-line no-undef
+      // const count = computed(() => store.state.user.count)
+      const count = computed(() => store.getters['user/count'])
 
+      // const inCrement = () => store.commit('user/increment')
+      const inCrement = () => store.dispatch('user/incrementA')
+      return { count, inCrement }
+    }
+  })
+</script>
 <style scoped>
   a {
     color: #42b983;

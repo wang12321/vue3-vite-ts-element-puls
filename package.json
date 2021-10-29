@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
+    "build:npm": "vue-tsc && vite build --mode .env.productionDev",
     "serve": "vite preview",
     "lint:eslint": "eslint \"src/**/*.{ts,tsx,js,json,vue}\"",
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,ts,css,scss,vue,html,md}\"",
