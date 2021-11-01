@@ -8,12 +8,16 @@ import store from './store'
 import router from './router'
 import 'virtual:svg-icons-register'
 import '@/permission' // permission control
-// import loadComponents from '@/components/index'
+import loadComponents from '@/components/index'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { initVueDocsDemo } from 'virtual:vite-plugin-vue-docs'
-import loadComponents from '../lib/static/js/index.js'
+// import SvgIcon from '../lib/vue3-vite.es.js'
+// import loadComponents from '../lib/vue3-vite.es.js'
+// import '../lib/style.css'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+// const SvgIcon = require('../lib/SvgIcon/static/js/index')
 // 导入demo组件
 const app = createApp(App)
 loadComponents(app)
@@ -25,7 +29,7 @@ if ((import.meta.env.VITE_APP_BASE_API as string)?.includes('production')) {
   }
 }
 
-console.log(import.meta.env.VITE_APP_BASE_API)
+console.log(122, import.meta.env.BASE_URL)
 
 // mock数据
 import { setupProdMockServer } from './mockProdServer'

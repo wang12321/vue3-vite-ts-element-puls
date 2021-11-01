@@ -1,5 +1,4 @@
 <!-- 折叠边栏按钮 -->
-
 <template>
   <div style="padding: 0 15px" :class="[{ 'is-active': isActive }]" @click="toggleClick">
     <svg
@@ -46,7 +45,7 @@
   })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .icon {
     vertical-align: middle;
     width: 20px;

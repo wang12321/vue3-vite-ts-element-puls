@@ -1,6 +1,6 @@
 // 全局添加组件
 import { createApp } from 'vue'
-const files = import.meta.globEager('./*/*.vue')
+const files = import.meta.globEager('./*/index.vue')
 
 export default function (app: ReturnType<typeof createApp>): void {
   Object.keys(files).forEach((fileName: string) => {

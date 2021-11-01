@@ -1,0 +1,23 @@
+
+.svg-icon1[data-v-4e6f274c] {
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+}
+.is-active[data-v-4e6f274c] {
+    transform: rotate(180deg);
+    margin-top: 2px;
+}
+
+.svg-icon[data-v-c8a70580] {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+.svg-external-icon[data-v-c8a70580] {
+    background-color: currentColor;
+    mask-size: cover !important;
+    display: inline-block;
+}

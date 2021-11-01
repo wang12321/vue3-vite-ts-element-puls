@@ -1,4 +1,4 @@
-import SvgIcon from './index'
+import SvgIcon from './index.vue'
 SvgIcon.install = (Vue) => {
   Vue.component(SvgIcon.name, SvgIcon)
 }

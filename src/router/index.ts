@@ -12,9 +12,12 @@ import { routes } from 'virtual:vite-plugin-vue-docs'
 export const asyncRouterMap: Array<RouteRecordRaw> = routers
 export const docsRouter: Array<RouteRecordRaw> = routesChildren()
 function routesChildren(): [] {
-  // routes[0].children = routes[0].children.filter((item: keyType) => {
-  //   return !(item.name.includes('使用说明') || item.name.includes('使用指南'))
-  // })
+  routes[0].children = routes[0].children?.map((item: keyType) => {
+    if (item.name.indexOf('Index') > -1) {
+      item.name = item.name.substring(0, item.name.indexOf('Index'))
+    }
+    return item
+  })
   return routes
 }
 export const constantRoutes: Array<RouteRecordRaw> = [
@@ -47,7 +50,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     path: '/HelloWorld',
     name: 'About',
     meta: { title: '组件文档', icon: 'dashboard', affix: true },
-    component: () => import(/* webpackChunkName: "about" */ '../components/HelloWorld.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../components/base/HelloWorld.vue')
   }
 ]
 
@@ -55,7 +58,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
 // createWebHistory history 路由
 // createMemoryHistory 带缓存 history 路由
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: constantRoutes.concat(docsRouter)
 })
 
