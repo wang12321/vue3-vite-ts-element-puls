@@ -8,6 +8,8 @@ import store from './store'
 import router from './router'
 import 'virtual:svg-icons-register'
 import '@/permission' // permission control
+import locale from 'element-plus/lib/locale/lang/zh-cn'
+
 import loadComponents from '@/components/index'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -21,7 +23,7 @@ import { initVueDocsDemo } from 'virtual:vite-plugin-vue-docs'
 // 导入demo组件
 const app = createApp(App)
 loadComponents(app)
-app.use(ElementPlus).use(store).use(router).use(initVueDocsDemo).mount('#app')
+app.use(ElementPlus, { locale }).use(store).use(router).use(initVueDocsDemo).mount('#app')
 
 if ((import.meta.env.VITE_APP_BASE_API as string)?.includes('production')) {
   console.log = function () {

@@ -13,11 +13,15 @@ export const asyncRouterMap: Array<RouteRecordRaw> = routers
 export const docsRouter: Array<RouteRecordRaw> = routesChildren()
 function routesChildren(): [] {
   routes[0].children = routes[0].children?.map((item: keyType) => {
-    if (item.name.indexOf('Index') > -1) {
-      item.name = item.name.substring(0, item.name.indexOf('Index'))
+    if (item.props.content.props && item.props.content.props.h3) {
+      console.log(111, item.props.content.props.h3)
+      item.props.content.props.h3 = '123'
+      // this.$set(item.props.content.props, 'h3', item.props.content.props.h3)
     }
     return item
   })
+  console.log(111, routes)
+
   return routes
 }
 export const constantRoutes: Array<RouteRecordRaw> = [
@@ -50,7 +54,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     path: '/HelloWorld',
     name: 'About',
     meta: { title: '组件文档', icon: 'dashboard', affix: true },
-    component: () => import(/* webpackChunkName: "about" */ '../components/base/HelloWorld.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../components/HelloWorld.vue')
   }
 ]
 

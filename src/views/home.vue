@@ -1,4 +1,4 @@
-<script setup type="ts"></script>
+<script setup lang="ts"></script>
 
 <template>
   <div style="background-color: #2c3e50">
