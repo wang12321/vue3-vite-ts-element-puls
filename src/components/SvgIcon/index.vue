@@ -28,7 +28,6 @@
       }
     },
     setup(props, ctx) {
-      console.log(123123, ctx)
       const symbolId = computed(() => `#${props.prefix}-${props.name}`)
       return { symbolId }
     }

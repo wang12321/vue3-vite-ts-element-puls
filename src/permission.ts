@@ -15,7 +15,6 @@ import { getToken } from '@/utils/auth'
 
 router.beforeEach(async (to: RouteLocationNormalized, _: RouteLocationNormalized, next: any) => {
   NProgress.start()
-
   const hasToken = getToken()
   document.title = getPageTitle(to.meta.title as string)
 
@@ -27,11 +26,16 @@ router.beforeEach(async (to: RouteLocationNormalized, _: RouteLocationNormalized
     } else {
       const hasGetUserInfo = store.getters['user/name']
       if (hasGetUserInfo) {
+        await store.commit('user/SET_ISDOC', false)
         if (to.path.indexOf('/:id') > -1) {
           const params = { id: '6' }
           next({ ...to, params: params })
         } else if (to.path.indexOf('/HelloWorld') > -1) {
           next({ path: '/docs' })
+        } else if (to.path.indexOf('docs') > -1) {
+          console.log(88888)
+          await store.commit('user/SET_ISDOC', true)
+          next()
         } else {
           next()
         }

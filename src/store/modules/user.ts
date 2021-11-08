@@ -8,7 +8,8 @@ const getDefaultState = () => {
     name: '',
     avatar: '',
     gamelist: [],
-    count: 10
+    count: 10,
+    isDoc: false
   }
 }
 export interface userStore {
@@ -17,13 +18,15 @@ export interface userStore {
   avatar: string
   gamelist: []
   count: number
+  isDoc: boolean
 }
 const state: userStore = {
   token: getToken(),
   name: '',
   avatar: '',
   gamelist: [],
-  count: 10
+  count: 10,
+  isDoc: false
 }
 
 const mutations: MutationTree<userStore> = {
@@ -35,6 +38,10 @@ const mutations: MutationTree<userStore> = {
   },
   SET_TOKEN: (state, token) => {
     state.token = token
+  },
+  SET_ISDOC: (state, isDoc) => {
+    console.log(23333, isDoc)
+    state.isDoc = isDoc
   },
   SET_NAME: (state, name) => {
     state.name = name
@@ -53,6 +60,9 @@ const getters: GetterTree<userStore, any> = {
   },
   count(state) {
     return state.count
+  },
+  isDoc(state) {
+    return state.isDoc
   },
   name(state) {
     return state.name
