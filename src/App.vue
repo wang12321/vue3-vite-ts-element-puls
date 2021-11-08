@@ -4,7 +4,6 @@
   import { useStore } from 'vuex'
   const store = useStore()
   const router = useRouter()
-
   const isDoc = computed(() => store.getters['user/isDoc'])
   const goback = () => {
     console.log('goback')
